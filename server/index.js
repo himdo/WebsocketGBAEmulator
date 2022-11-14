@@ -54,7 +54,7 @@ function sleep(ms) {
 
 async function main() {
   while (true) {
-    await sleep(10)
+    await sleep(100)
     doFrame()
   }
 }
