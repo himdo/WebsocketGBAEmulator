@@ -1,13 +1,30 @@
 const WebSocket = require('ws');
 
 const ws = new WebSocket('ws://localhost:8080');
-
+let frameData = undefined
 ws.on('open', function open() {
-  const array = new Float32Array(5);
+  // let data = {"a":"b"}
+  // ws.send(JSON.stringify(data));
 
-  for (var i = 0; i < array.length; ++i) {
-    array[i] = i / 2;
+});
+
+ws.on('message', function message(data, isBinary) {
+  // console.log(isBinary);
+  // console.log(data.toString())
+  try {
+    data = JSON.parse(data)
+    console.log(data['type'])
+    if (data['type'] === 'FrameData') {
+      console.log('=========================================================')
+      console.log('=========================================================')
+      console.log('=========================================================')
+      console.log(data['data'])
+      console.log('=========================================================')
+      console.log('=========================================================')
+      console.log('=========================================================')
+      frameData = data['data']
+    }
+  } catch (error) {
+    console.error(error)
   }
-  console.log(array)
-  ws.send(array);
 });
